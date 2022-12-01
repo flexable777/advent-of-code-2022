@@ -8,7 +8,7 @@ fun main() {
     fun part2(input: String): Int {
         return input.split("\n\n").map {
             it.split("\n").sumOf { it.toInt() }
-        }.sortedDescending().subList(0, 3).sum()
+        }.sortedDescending().take(3).sum()
     }
 
     val testInput = readInput("Day01_test")
