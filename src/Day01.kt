@@ -1,14 +1,17 @@
 fun main() {
     fun part1(input: String): Int {
-        return input.split("\n\n").maxOf {
-            it.split("\n").sumOf { it.toInt() }
-        }
+        return input.split("\n\n")
+            .maxOf {
+                it.lines().sumOf { it.toInt() }
+            }
     }
 
     fun part2(input: String): Int {
-        return input.split("\n\n").map {
-            it.split("\n").sumOf { it.toInt() }
-        }.sortedDescending().take(3).sum()
+        return input.split("\n\n")
+            .map { it.lines().sumOf { it.toInt() } }
+            .sortedDescending()
+            .take(3)
+            .sum()
     }
 
     val testInput = readInput("Day01_test")
