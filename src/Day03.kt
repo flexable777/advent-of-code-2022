@@ -1,7 +1,7 @@
 fun main() {
 
     fun Char.getPriority(): Int =
-        if (this in 'a'..'z') {
+        if (this.isLowerCase()) {
             this - 'a' + 1
         } else {
             this - 'A' + 27
@@ -11,9 +11,9 @@ fun main() {
         input.sumOf { line ->
             //Better way to split these?
             val middleIndex = line.length / 2
-            val compartment1 = line.substring(0, middleIndex).map { it.getPriority() }
-            val compartment2 = line.substring(middleIndex).map { it.getPriority() }
-            compartment1.intersect(compartment2).first()
+            val compartment1 = line.substring(0, middleIndex).map { it.getPriority() }.toSet()
+            val compartment2 = line.substring(middleIndex).map { it.getPriority() }.toSet()
+            compartment1.intersect(compartment2).single()
         }
 
     fun part2(input: List<String>): Int {
