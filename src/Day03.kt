@@ -16,14 +16,24 @@ fun main() {
             compartment1.intersect(compartment2).first()
         }
 
-    fun part2(input: List<String>): Int =
-        //How to intersect multiple sets in Kotlin?
-        input.chunked(3).sumOf { chunk ->
-            chunk.flatMap { it.toSet().map { char -> char.getPriority() } }
-                .groupBy { it }
-                .filter { it.value.size == 3 }
-                .keys.first()
+    fun part2(input: List<String>): Int {
+        //Alt. 1
+//        input.chunked(3).sumOf { chunk ->
+//            chunk.flatMap { it.toSet().map { char -> char.getPriority() } }
+//                .groupBy { it }
+//                .filter { it.value.size == 3 }
+//                .keys.first()
+//        }
+
+        //Alt. 2
+        return input.chunked(3).sumOf { chunk ->
+            chunk.reduce { acc, s ->
+                s.toSet().intersect(acc.toSet()).joinToString(separator = "")
+            }.map { it.getPriority() }.sum()
         }
+
+        //Alt. 3 retainAll?
+    }
 
     val testInput = readInputAsLines("Day03_test")
     check(part1(testInput) == 157)
